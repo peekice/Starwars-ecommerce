@@ -16,7 +16,7 @@ const styles = {
 function NavItems(){
     return (
         <div className="items-center justify-between w-full md:flex md:w-auto" id="nav-items">
-            <ul className="flex flex-col p-4 md:p-4 mt-4 font-medium border border-gray-100 rounded md:flex-row md:space-x-8 md:mt-0 md:border-0 bg-white">
+            <ul className="flex flex-col p-4 md:p-4 mt-4 font-medium border border-gray-100 rounded md:flex-row md:space-x-8 md:mt-0 md:border-0">
                 {
                     isAdminView ? adminNavOptions.map((item) => (
                         <li className="cursor-pointer block py-2 pl-3 pr-4 text-gray-900 rounded md:p-0" key={item.id}>
@@ -33,7 +33,7 @@ function NavItems(){
 
 export default function Navbar(){
     return(
-       <nav className="bg-white fixed w-full z-20 top-0 left-0 border-b border-gray-200">
+       <nav className="bg-stwgold fixed w-full z-20 top-0 left-0 border-b border-gray-200">
            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                <div className="flex items-center cursor-pointer">
                    <span className="self-center text-xl font-normal whitespace-nowrap">
