@@ -2,9 +2,37 @@
 
 import {registrationFormControls} from "@/utils";
 import InputComponent from "@/components/FormElements/InputComponent";
+import {useState} from "react";
+import {registerNewUser} from "@/services/register";
 
 const isRegistered = false
+
+const initialState = {
+    name: '',
+    email: '',
+    password: '',
+    role: 'customer',
+}
+
 export default function Register() {
+
+    const [formData, setFormData] = useState(initialState)
+
+    function isFormValid() {
+        return formData && formData.name && formData.name.trim() !== '' && formData.email && formData.email.trim() !== '' && formData.password && formData.password.trim() !== '' ? true : false;
+    }
+
+    console.log(isFormValid())
+
+    async function handleRegisterOnSubmit(){
+        const data = await registerNewUser(formData)
+
+        console.log(data);
+
+    }
+
+
+
     return (
         <div className="bg-white relative">
             <div
@@ -14,7 +42,7 @@ export default function Register() {
                         <div
                             className="flex flex-col items-center justify-start pt-10 pr-10 pb-10 pl-10 bg-white shadow-2xl rounded-xl relative z-10">
                             <p className="w-full text-4xl font-medium text-center">{
-                                isRegistered ? "Registraration Successful !!!" : "Sign Up"
+                                isRegistered ? "Registration Successful !!!" : "Sign Up"
                             }</p>
                             {
                                 isRegistered ? <button
@@ -24,11 +52,21 @@ export default function Register() {
                                             <InputComponent
                                                 type={controlItem.type}
                                                 placeholder={controlItem.placeholder}
-                                                label={controlItem.label}/>
+                                                label={controlItem.label}
+                                                onChange={(event) =>
+                                                    setFormData({
+                                                        ...formData,
+                                                        [controlItem.id]: event.target.value
+                                                    })}
+                                                value={formData[controlItem.id]}
+                                            />
                                         )
                                         }
                                         <button
-                                            className="inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide">Register
+                                            className="disabled:opacity-50 inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide"
+                                            disabled={!isFormValid()}
+                                            onClick={handleRegisterOnSubmit}>
+                                            Register
                                         </button>
                                     </div>
                             }

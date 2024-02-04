@@ -2,14 +2,14 @@ import connectToDB from "@/database";
 import Joi from "joi";
 import {NextResponse} from "next/server";
 import User from "@/models/user";
-import hash from "bcryptjs";
+const bcryptjs = require('bcryptjs');
 
 
 const schema = Joi.object({
     name : Joi.string().required(),
     email : Joi.string().email().required(),
     password : Joi.string().min(6).required(),
-    role : "Customer"
+    role : Joi.string().required(),
 })
 
 export const dynamic = 'force-dynamic';
@@ -39,13 +39,13 @@ export async function POST(req){
             )
         }
         else {
-            const hashPassword = await hash(password,12);
+            const hashPassword = await bcryptjs.hash(password, 8);
 
             const newCreatedUser = await User.create({name,email,password : hashPassword,role})
 
             if(newCreatedUser){
                 return NextResponse.json({
-                    success : false,
+                    success : true,
                     message : 'Create user successfully!!!'
                 })
             }
@@ -55,7 +55,7 @@ export async function POST(req){
         console.log('Error is new user registration')
         return NextResponse.json({
             success : false,
-            message : 'Something went wrong try again later'
+            message : `Something went wrong try again later ${error}`
         }
         )
     }
