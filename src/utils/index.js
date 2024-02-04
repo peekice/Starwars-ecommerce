@@ -59,3 +59,18 @@ export const registrationFormControls = [
         label : 'Password',
     },
 ]
+
+export const loginFormControls = [
+    {
+        id: 'email',
+        type : 'email',
+        placeholder : "Enter your email",
+        label : 'Email',
+    },
+    {
+        id: 'password',
+        type : 'password',
+        placeholder : "Enter your password",
+        label : 'Password',
+    },
+]
