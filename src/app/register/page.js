@@ -6,7 +6,6 @@ import {useState} from "react";
 import {registerNewUser} from "@/services/register";
 import Notification from "@/components/Notification";
 import {toast} from "react-toastify";
-import {router} from "next/client";
 import {useRouter} from "next/navigation";
 
 const isRegistered = false
