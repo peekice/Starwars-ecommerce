@@ -1,13 +1,12 @@
 'use client'
 
-import {Fragment} from "react";
+import {Fragment, useContext} from "react";
 import {navOptions, adminNavOptions} from "@/utils";
+import {GlobalContext} from "@/context";
+import Cookies from "js-cookie";
+import {useRouter} from "next/navigation";
 
 const isAdminView = false;
-const isAuthUser = true;
-const user = {
-    role : 'Admin'
-}
 
 const styles = {
     button: 'mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white',
@@ -32,34 +31,48 @@ function NavItems(){
 }
 
 export default function Navbar(){
+
+    const {user, isAuthUser, setIsAuthUser, setUser} = useContext(GlobalContext)
+    const  router = useRouter()
+
+    console.log(user)
+
+    function handleLogout(){
+        setIsAuthUser(false)
+        setUser(null)
+        Cookies.remove('token')
+        localStorage.clear()
+        router.push('/')
+    }
+
     return(
-       <nav className="bg-stwgold fixed w-full z-20 top-0 left-0 border-b border-gray-200">
-           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-               <div className="flex items-center cursor-pointer">
+        <nav className="bg-stwgold fixed w-full z-20 top-0 left-0 border-b border-gray-200">
+            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+                <div className="flex items-center cursor-pointer">
                    <span className="self-center text-xl font-normal whitespace-nowrap">
                        Starwars Ecommerce
                    </span>
-               </div>
-               <div className="flex md:order-2 gap-2">
-                   {
-                       !isAdminView && isAuthUser ?
-                       <Fragment>
-                           <button className={styles.button}>Account</button>
-                           <button className={styles.button}>Cart</button>
-                       </Fragment>
-                   : null}
-                   {
-                       user?.role == 'Admin'?
-                           isAdminView ? <button className={styles.button}>Client View</button>
-                               :<button className={styles.button}>Admin View</button>
-                           :null
-                   }
-                   {
-                       isAuthUser ? <button className={styles.button}>Logout</button>:<button className={styles.button}>Login</button>
-                   }
-               </div>
-               <NavItems/>
-           </div>
-       </nav>
+                </div>
+                <div className="flex md:order-2 gap-2">
+                    {
+                        !isAdminView && isAuthUser ?
+                            <Fragment>
+                                <button className={styles.button}>Account</button>
+                                <button className={styles.button}>Cart</button>
+                            </Fragment>
+                            : null}
+                    {
+                        user?.role == 'admin'?
+                            isAdminView ? <button className={styles.button}>Client View</button>
+                                :<button className={styles.button}>Admin View</button>
+                            :null
+                    }
+                    {
+                        isAuthUser ? <button onClick={handleLogout} className={styles.button}>Logout</button>:<button onClick={()=> router.push('/login')} className={styles.button}>Login</button>
+                    }
+                </div>
+                <NavItems/>
+            </div>
+        </nav>
     )
 }

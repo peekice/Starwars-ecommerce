@@ -4,6 +4,10 @@ import {registrationFormControls} from "@/utils";
 import InputComponent from "@/components/FormElements/InputComponent";
 import {useState} from "react";
 import {registerNewUser} from "@/services/register";
+import Notification from "@/components/Notification";
+import {toast} from "react-toastify";
+import {router} from "next/client";
+import {useRouter} from "next/navigation";
 
 const isRegistered = false
 
@@ -17,18 +21,32 @@ const initialState = {
 export default function Register() {
 
     const [formData, setFormData] = useState(initialState)
+    const  router = useRouter()
 
     function isFormValid() {
         return formData && formData.name && formData.name.trim() !== '' && formData.email && formData.email.trim() !== '' && formData.password && formData.password.trim() !== '' ? true : false;
     }
 
-    console.log(isFormValid())
 
     async function handleRegisterOnSubmit(){
         const data = await registerNewUser(formData)
+        if(data.success){
+            toast.success(data.message,{
+                position: "top-right"
+            });
 
-        console.log(data);
+            let delayInMilliseconds = 1000;
 
+            setTimeout(function() {
+                router.push('/login')
+            }, delayInMilliseconds);
+
+        }
+        else{
+            toast.error(data.message,{
+                position: "top-right"
+            });
+        }
     }
 
 
@@ -74,6 +92,7 @@ export default function Register() {
                     </div>
                 </div>
             </div>
+            <Notification/>
         </div>
     )
 }
