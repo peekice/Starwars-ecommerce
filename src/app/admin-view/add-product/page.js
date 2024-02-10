@@ -75,10 +75,6 @@ export default function AdminAddNewProduct() {
                 position: "top-right"
             });
             setFormData(initialFormData);
-
-            setTimeout(()=>{
-                router.push('/')
-            },1000)
         }
         else{
             toast.error(res.message,{
