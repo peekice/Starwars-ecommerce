@@ -143,10 +143,23 @@ export const adminAddProductFormControls = [
         ]
     },
     {
-        id: 'price',
+        id: 'priceDrop',
         type : 'number',
-        placeholder : "Enter Price",
-        label : 'Price',
+        placeholder : "Enter Price Drop",
+        label : 'PriceDrop',
         componentType : 'input'
     },
 ];
+
+
+export const firebaseConfig = {
+    apiKey: "AIzaSyBeDc6zGxoNIq36kO2p2Ma8oaZtGFVEVoU",
+    authDomain: "starwars-ecommerce.firebaseapp.com",
+    projectId: "starwars-ecommerce",
+    storageBucket: "starwars-ecommerce.appspot.com",
+    messagingSenderId: "1023121887501",
+    appId: "1:1023121887501:web:c5f31d168d849f66fba044",
+    measurementId: "G-M063GGM88H"
+};
+
+export const firebaseStorageUrl = 'gs://starwars-ecommerce.appspot.com'

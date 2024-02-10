@@ -78,7 +78,7 @@ export default function Navbar(){
                             :<button onClick={()=> router.push('/login')} className={styles.button}>Login</button>
                     }
                 </div>
-                <NavItems isAdminView={isAdminView}/>
+                <NavItems/>
             </div>
         </nav>
     )
