@@ -1,4 +1,4 @@
-export default function selectComponent({label,onChange, value, option = []}){
+export default function SelectComponent({label,onChange, value, option = []}){
     return(
         <div className="relative">
             <p className="pt-0 pr-2 pl-2 pb-0 -mt-3 mr-0 mb -0 ml-2 font-medium text-gray-600">{label}</p>

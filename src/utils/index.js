@@ -58,7 +58,7 @@ export const registrationFormControls = [
         placeholder : "Enter your password",
         label : 'Password',
     },
-]
+];
 
 export const loginFormControls = [
     {
@@ -73,4 +73,80 @@ export const loginFormControls = [
         placeholder : "Enter your password",
         label : 'Password',
     },
-]
+];
+
+export const adminAddProductFormControls = [
+    {
+        id: 'name',
+        type : 'text',
+        placeholder : "Enter name",
+        label : 'Name',
+        componentType : 'input'
+    },
+    {
+        id: 'price',
+        type : 'number',
+        placeholder : "Enter price",
+        label : 'Price',
+        componentType : 'input'
+    },
+    {
+        id: 'description',
+        type : 'text',
+        placeholder : "Enter description",
+        label : 'Description',
+        componentType : 'input'
+    },
+    {
+        id: 'category',
+        type : '',
+        placeholder : "",
+        label : 'Category',
+        componentType : 'select',
+        options: [
+            {
+                id : "starship",
+                label : "Starship"
+            },
+            {
+                id : "lightsaber",
+                label : "Light Saber"
+            },
+            {
+                id : "helmet",
+                label : "Helmet"
+            }
+        ]
+    },
+    {
+        id: 'deliveryInfo',
+        type : 'text',
+        placeholder : "Enter Delivery Info",
+        label : 'Delivery Info',
+        componentType : 'input'
+    },
+    {
+        id: 'onSale',
+        type : '',
+        placeholder : "",
+        label : 'On Sale',
+        componentType : 'select',
+        options: [
+            {
+                id : "yes",
+                label : "Yes"
+            },
+            {
+                id : "no",
+                label : "No"
+            }
+        ]
+    },
+    {
+        id: 'price',
+        type : 'number',
+        placeholder : "Enter Price",
+        label : 'Price',
+        componentType : 'input'
+    },
+];
