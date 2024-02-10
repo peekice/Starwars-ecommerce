@@ -10,17 +10,17 @@ export const navOptions = [
         path: "/product/listing/all-products",
     },
     {
-        id: "listingMen",
+        id: "listingStarShip",
         label: "Star Ship",
         path: "/product/listing/StarShip",
     },
     {
-        id: "listingWomen",
+        id: "listingLightSaber",
         label: "Light Saber",
         path: "/product/listing/LightSaber",
     },
     {
-        id: "listingKids",
+        id: "listingHelmet",
         label: "Helmet",
         path: "/product/listing/Helmet",
     },
