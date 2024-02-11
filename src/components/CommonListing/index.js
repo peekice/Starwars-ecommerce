@@ -3,9 +3,19 @@
 
 import ProductTile from "@/components/CommonListing/ProductTile";
 import ProductButton from "@/components/CommonListing/ProductButton";
+import {useRouter} from "next/navigation";
+import {useEffect} from "react";
+import Notification from "@/components/Notification";
 
 
-export default function CommonListing({data}) {
+export default function CommonListing({data}){
+
+    const router = useRouter();
+
+    useEffect(()=>{
+        router.refresh();
+    },[])
+
     return <section className="bg-white py-12 sm:py-16">
         <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
             <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4 sm:gap-4 lg:mt-16">
@@ -21,5 +31,6 @@ export default function CommonListing({data}) {
                 }
             </div>
         </div>
+        <Notification/>
     </section>
 }

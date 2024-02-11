@@ -9,6 +9,7 @@ export default function GlobalState({children}) {
 
     const [isAuthUser, setIsAuthUser] = useState(null);
     const [user, setUser] = useState(null)
+    const [currentUpdateProduct,setCurrentUpdateProduct] = useState(null)
 
     useEffect(()=>{
 
@@ -24,6 +25,6 @@ export default function GlobalState({children}) {
     },[Cookies])
 
     return (
-        <GlobalContext.Provider value={{isAuthUser, setIsAuthUser, user, setUser}}>{children}</GlobalContext.Provider>
+        <GlobalContext.Provider value={{isAuthUser, setIsAuthUser, user, setUser,currentUpdateProduct,setCurrentUpdateProduct}}>{children}</GlobalContext.Provider>
     )
 }

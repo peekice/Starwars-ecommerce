@@ -1,6 +1,6 @@
 'use client'
 
-import {Fragment, useContext} from "react";
+import {Fragment, useContext, useEffect} from "react";
 import {navOptions, adminNavOptions} from "@/utils";
 import {GlobalContext} from "@/context";
 import Cookies from "js-cookie";
@@ -36,10 +36,14 @@ function NavItems(){
 
 export default function Navbar(){
 
-    const {user, isAuthUser, setIsAuthUser, setUser} = useContext(GlobalContext)
+    const {user, isAuthUser, setIsAuthUser, setUser, currentUpdateProduct, setCurrentUpdateProduct} = useContext(GlobalContext)
     const router = useRouter()
     const pathName = usePathname()
 
+
+    useEffect(() => {
+        if(pathName !== '/admin-view/add-product' && currentUpdateProduct !== null) setCurrentUpdateProduct(null);
+    }, [pathName]);
 
     function handleLogout(){
         setIsAuthUser(false)
