@@ -12,17 +12,17 @@ export const navOptions = [
     {
         id: "listingStarShip",
         label: "Star Ship",
-        path: "/product/listing/StarShip",
+        path: "/product/listing/starship",
     },
     {
         id: "listingLightSaber",
         label: "Light Saber",
-        path: "/product/listing/LightSaber",
+        path: "/product/listing/lightsaber",
     },
     {
         id: "listingHelmet",
         label: "Helmet",
-        path: "/product/listing/Helmet",
+        path: "/product/listing/helmet",
     },
 ];
 
