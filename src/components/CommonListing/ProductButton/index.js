@@ -5,6 +5,7 @@ import {useContext} from "react";
 import {GlobalContext} from "@/context";
 import {deleteProduct} from "@/services/product";
 import {toast} from "react-toastify";
+import {addToCart} from "@/services/cart";
 
 export default function ProductButton({item}) {
 
@@ -12,7 +13,7 @@ export default function ProductButton({item}) {
     const isAdminView = pathName.includes('admin-view');
     const router = useRouter();
 
-    const {setCurrentUpdateProduct} = useContext(GlobalContext);
+    const {setCurrentUpdateProduct,user,showCartModal, setShowCartModal} = useContext(GlobalContext);
 
     async function handleDeleteProduct(item){
 
@@ -32,6 +33,24 @@ export default function ProductButton({item}) {
 
     }
 
+    async function handleAddToCart(item){
+        const res = await addToCart({productID : item._id, userID : user._id})
+
+        if (res.success) {
+            toast.success(res.message, {
+                position: "top-right"
+            });
+            setShowCartModal(true);
+        }
+        else {
+            toast.error(res.message, {
+                position: "top-right"
+            });
+            setShowCartModal(true);
+        }
+
+    }
+
     return isAdminView ? <>
             <button onClick={()=>{
                 setCurrentUpdateProduct(item);
@@ -40,6 +59,6 @@ export default function ProductButton({item}) {
             <button onClick={()=> handleDeleteProduct(item)} className="mt-1.5 flex w-full justify-center bg-black px-5 py-3 text-xs text-white font-medium uppercase">Delete</button>
         </>
         : <>
-            <button className="mt-1.5 flex w-full justify-center bg-black px-5 py-3 text-xs text-white font-medium uppercase">Add To Cart</button>
+            <button onClick={()=>handleAddToCart(item)} className="mt-1.5 flex w-full justify-center bg-black px-5 py-3 text-xs text-white font-medium uppercase">Add To Cart</button>
         </>
 }

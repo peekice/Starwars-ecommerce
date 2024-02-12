@@ -10,6 +10,9 @@ export default function GlobalState({children}) {
     const [isAuthUser, setIsAuthUser] = useState(null);
     const [user, setUser] = useState(null)
     const [currentUpdateProduct,setCurrentUpdateProduct] = useState(null)
+    const [showCartModal, setShowCartModal] = useState(false)
+    const [showNavModal, setShowNavModal] = useState(false);
+    const [cartItems, setCartItems] = useState([])
 
     useEffect(()=>{
 
@@ -25,6 +28,6 @@ export default function GlobalState({children}) {
     },[Cookies])
 
     return (
-        <GlobalContext.Provider value={{isAuthUser, setIsAuthUser, user, setUser,currentUpdateProduct,setCurrentUpdateProduct}}>{children}</GlobalContext.Provider>
+        <GlobalContext.Provider value={{isAuthUser, setIsAuthUser, user, setUser,currentUpdateProduct,setCurrentUpdateProduct,showCartModal, setShowCartModal,showNavModal, setShowNavModal,cartItems, setCartItems}}>{children}</GlobalContext.Provider>
     )
 }
