@@ -62,7 +62,7 @@ export const deleteProduct = async (id)=>{
             },
         });
 
-
+        const data = res.json();
 
         return data;
     }
@@ -74,6 +74,21 @@ export const deleteProduct = async (id)=>{
 export const productByCategory = async (id)=>{
     try {
         const res = await fetch(`https://starwars-ecommerce.vercel.app/api/admin/product-by-category?id=${id}`,{
+            method : 'GET',
+            cache: 'no-cache'
+        });
+
+        const data = res.json();
+        return data;
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+export const productById = async (id)=>{
+    try {
+        const res = await fetch(`http://localhost:3000/api/admin/product-by-id?id=${id}`,{
             method : 'GET',
             cache: 'no-cache'
         });
