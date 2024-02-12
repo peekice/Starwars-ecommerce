@@ -12,6 +12,6 @@ const ProductSchema = new mongoose.Schema({
 }, {timestamps : true}
 )
 
-const Product = mongoose.models.Products || mongoose.model("Products",ProductSchema)
+const Product = mongoose.models.Products || mongoose.model("Products",ProductSchema) || mongoose.model("Products")
 
 export default Product

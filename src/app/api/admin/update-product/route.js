@@ -15,12 +15,12 @@ export async function PUT(req) {
         if (isAuthUser?.role === "admin") {
             const extractData = await req.json();
 
-            const {_id, name, price, description, category, deliveryIngo, onSale, priceDrop, imageUrl} = extractData;
+            const {_id, name, price, description, category, deliveryInfo, onSale, priceDrop, imageUrl} = extractData;
 
             const updateProduct = await Product.findOneAndUpdate({
                     _id: _id
                 },
-                {name, price, description, category, deliveryIngo, onSale, priceDrop, imageUrl},
+                {name, price, description, category, deliveryInfo, onSale, priceDrop, imageUrl},
                 {new: true});
 
             if (updateProduct) {
