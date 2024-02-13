@@ -151,6 +151,29 @@ export const adminAddProductFormControls = [
     },
 ];
 
+export const addNewAddressFormControls = [
+    {
+        id: 'fullName',
+        type : 'text',
+        placeholder : "Enter your full name",
+        label : 'Full Name',
+        componentType : 'input'
+    },
+    {
+        id: 'address',
+        type : 'text',
+        placeholder : "Enter your address",
+        label : 'Address',
+        componentType : 'input'
+    },
+    {
+        id: 'star',
+        type : 'text',
+        placeholder : "Enter your star",
+        label : 'Star',
+        componentType : 'input'
+    },
+]
 
 export const firebaseConfig = {
     apiKey: "AIzaSyBeDc6zGxoNIq36kO2p2Ma8oaZtGFVEVoU",
