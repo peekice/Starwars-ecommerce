@@ -9,7 +9,7 @@ import CartModal from "@/components/CartModal";
 
 
 const styles = {
-    button: 'mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white',
+    button: 'mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase text-white',
 };
 
 function NavItems() {
@@ -80,7 +80,7 @@ export default function Navbar() {
                         {
                             !isAdminView && isAuthUser ?
                                 <Fragment>
-                                    <button className={styles.button}>Account</button>
+                                    <button onClick={()=>router.push('/account')} className={styles.button}>Account</button>
                                     <button onClick={()=> setShowCartModal(true)} className={styles.button}>Cart</button>
                                 </Fragment>
                                 : null}

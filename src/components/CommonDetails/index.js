@@ -1,7 +1,36 @@
 'use client'
 
 
+import {addToCart} from "@/services/cart";
+import {toast} from "react-toastify";
+import {useContext} from "react";
+import {GlobalContext} from "@/context";
+import Notification from "@/components/Notification";
+
+
 export default function CommonDetails({item}) {
+
+    const {setShowCartModal, user} = useContext(GlobalContext)
+
+    async function handleAddToCart(item){
+        const res = await addToCart({productID : item._id, userID : user._id})
+
+        if (res.success) {
+            toast.success(res.message, {
+                position: "top-right"
+            });
+            setShowCartModal(true);
+        }
+        else {
+            toast.error(res.message, {
+                position: "top-right"
+            });
+            setShowCartModal(true);
+        }
+
+    }
+
+
     return <section className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto px-4">
             <div className="lg:col-gap-12 xl:col-gap-16 mt-8 grid grid-cols-1 lg:mt12 lg:grid-cols-5 lg:gap-16 ">
@@ -38,7 +67,7 @@ export default function CommonDetails({item}) {
                             {item.onSale === 'yes' ?
                                 <h1 className="text-3xl font-bold text-red-700 mr-2">{`$${(item.price - item.price * (item.priceDrop / 100)).toFixed(2)}`}</h1> : null}
                         </div>
-                        <button type="butoon"
+                        <button onClick={()=>handleAddToCart(item)} type="butoon"
                                 className="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase text-white">Add
                             to Cart
                         </button>
@@ -59,5 +88,6 @@ export default function CommonDetails({item}) {
                 </div>
             </div>
         </div>
+        <Notification/>
     </section>
 }
