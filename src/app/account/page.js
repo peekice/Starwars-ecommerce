@@ -41,6 +41,7 @@ export default function Account() {
             });
             extractAllAddress();
             setCurrentEditAddress(null);
+            setShowAddressForm(false);
         } else {
             toast.error(res.message, {
                 position: "top-right"
