@@ -7,8 +7,6 @@ import InputComponent from "@/components/FormElements/InputComponent";
 import {addNewAddress, deleteAddress, getAllAddress, updateAddress} from "@/services/address";
 import {toast} from "react-toastify";
 import Notification from "@/components/Notification";
-import {useRouter} from "next/navigation";
-import {log} from "next/dist/server/typescript/utils";
 
 export default function Account() {
 
