@@ -23,6 +23,10 @@ export const navOptions = [
         id: "listingHelmet",
         label: "Helmet",
         path: "/product/listing/helmet",
+    },{
+        id: "listingDroid",
+        label: "Droid",
+        path: "/product/listing/droid",
     },
 ];
 
@@ -115,6 +119,10 @@ export const adminAddProductFormControls = [
             {
                 id : "helmet",
                 label : "Helmet"
+            },
+            {
+                id : "droid",
+                label : "Droid"
             }
         ]
     },
