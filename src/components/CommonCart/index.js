@@ -1,6 +1,15 @@
 'use client'
 
+import {useRouter} from "next/navigation";
+
 export default function CommonCart({cartItems = [] ,handleDeleteCartItems}){
+
+    const router = useRouter();
+
+    function pushToCheckout(){
+        router.push('/checkout');
+    }
+
     return(
         <section className="h-screen bg-gray-100">
             <div className="mx-auto px-4 sm:px-6 lg:px-8">
@@ -55,7 +64,7 @@ export default function CommonCart({cartItems = [] ,handleDeleteCartItems}){
                                 </div>
                             </div>
                             <div className="mt-5 text-center">
-                                <button disabled={cartItems && cartItems.length === 0} className="group inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg text-white font-medium uppercase disabled:opacity-50">Checkout</button>
+                                <button onClick={pushToCheckout} disabled={cartItems && cartItems.length === 0} className="group inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg text-white font-medium uppercase disabled:opacity-50">Checkout</button>
                             </div>
                         </div>
                     </div>

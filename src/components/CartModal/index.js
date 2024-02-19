@@ -78,7 +78,7 @@ export default function CartModal() {
             buttonComponent={
                 <Fragment>
                     <button onClick={()=>{router.push('/cart');setShowCartModal(false)}} type="button" className="mt-1.5 w-full inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase">Go to cart</button>
-                    <button disabled={cartItems && cartItems.length === 0} type="button" className="mt-1.5 w-full inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase disabled:opacity-50">Checkout</button>
+                    <button onClick={()=>{router.push('/checkout');setShowCartModal(false)}}  disabled={cartItems && cartItems.length === 0} type="button" className="mt-1.5 w-full inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase disabled:opacity-50">Checkout</button>
                     <div className="mt-6 flex justify-center text-center text-sm text-gray-600">
                         <button type="button" className="font-medium text-gray">Continue Shopping</button>
                         <span aria-hidden="true"> &rarr;</span>

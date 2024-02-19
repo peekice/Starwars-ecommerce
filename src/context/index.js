@@ -2,10 +2,36 @@
 
 import {createContext, useEffect, useState} from "react";
 import Cookies from "js-cookie";
+import {usePathname, useRouter} from "next/navigation";
 
 export const GlobalContext = createContext(null);
 
+export const initialCheckoutFormData = {
+    shippingAddress: {},
+    paymentMethod: '',
+    totalPrice: 0,
+    isPaid: false,
+    paidAt: new Date(),
+    isProcessing: true,
+}
+
+const protectedRoutes = [
+    '/cart',
+    '/checkout',
+    '/account',
+    '/order',
+    '/admin-view',
+    '/admin-view/add-product',
+    '/admin-view/all-products',
+];
+const protectedAdminRoutes = [
+    '/admin-view',
+    '/admin-view/add-product',
+    '/admin-view/all-products',
+]
+
 export default function GlobalState({children}) {
+
 
     const [isAuthUser, setIsAuthUser] = useState(null);
     const [user, setUser] = useState(null)
@@ -19,19 +45,37 @@ export default function GlobalState({children}) {
         address: '',
         star: '',
     });
+    const [checkoutFormData, setCheckoutFormData] = useState(initialCheckoutFormData);
 
+    const router = useRouter();
+    const pathName = usePathname();
 
     useEffect(() => {
 
         if (Cookies.get('token') !== undefined) {
             setIsAuthUser(true);
             const userData = JSON.parse(localStorage.getItem('user')) || {};
-            setUser(userData)
+            const getCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            setUser(userData);
+            setCartItems(getCartItems);
         } else {
-            setIsAuthUser(false)
+            setIsAuthUser(false);
+            setUser({});
         }
 
     }, [Cookies])
+
+    useEffect(() => {
+        if (user && Object.keys(user).length === 0 && protectedRoutes.indexOf(pathName) > -1) {
+            router.push('/login')
+        }
+    }, [user, pathName])
+
+    useEffect(() => {
+        if (user !== null && user && Object.keys(user).length > 0 && user?.role !== 'admin' && protectedAdminRoutes.indexOf(pathName) > -1) {
+            router.push('/unauthorized-page')
+        }
+    }, [user, pathName])
 
     return (
         <GlobalContext.Provider value={{
@@ -50,7 +94,9 @@ export default function GlobalState({children}) {
             address,
             setAddress,
             addressFormData,
-            setAddressFormData
+            setAddressFormData,
+            checkoutFormData,
+            setCheckoutFormData
         }}>{children}</GlobalContext.Provider>
     )
 }
