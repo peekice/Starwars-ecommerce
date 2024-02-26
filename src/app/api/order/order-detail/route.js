@@ -1,61 +1,50 @@
 import connectToDB from "@/database";
-import Order from "@/models/order";
-import {NextResponse} from "next/server";
 import AuthUser from "@/middleware/AuthUser";
-
+import Order from "@/models/order";
+import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req) {
     try {
         await connectToDB();
-        const isAuthUser = AuthUser(req)
+        const isAuthUser = await AuthUser(req);
 
         if (isAuthUser) {
-            const {searchParams} = new URL(req.url);
-            const id = searchParams.get('id');
+            const { searchParams } = new URL(req.url);
+            const id = searchParams.get("id");
 
-            if(!id){
+            if (!id)
                 return NextResponse.json({
-                        success: false,
-                        message: 'Product ID is required'
-                    }
-                )
-            }
+                    success: false,
+                    message: "Product ID is required",
+                });
 
-            const extractOrderDetails = await Order.findById(id).populate('orderItems.product');
+            const extractOrderDetails = await Order.findById(id).populate(
+                "orderItems.product"
+            );
 
-            if (extractOrderDetails){
+            if (extractOrderDetails) {
                 return NextResponse.json({
-                        success: true,
-                        data : extractAllOrder
-                    }
-                )
-            }
-            else{
+                    success: true,
+                    data: extractOrderDetails,
+                });
+            } else {
                 return NextResponse.json({
-                        success: false,
-                        message: 'Failed to get order detail please try again'
-                    }
-                )
+                    success: false,
+                    message: "Failed to get order details ! Please try again",
+                });
             }
-
-
         } else {
             return NextResponse.json({
-                    success: false,
-                    message: 'You are not authenticated'
-                }
-            )
-        }
-
-    } catch (error) {
-        console.log(error)
-        return NextResponse.json({
                 success: false,
-                message: 'Something went wrong try again later'
-            }
-        )
+                message: "You are not authticated",
+            });
+        }
+    } catch (e) {
+        return NextResponse.json({
+            success: false,
+            message: "Something went wrong ! Please try again later",
+        });
     }
-
 }

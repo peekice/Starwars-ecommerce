@@ -7,6 +7,7 @@ import InputComponent from "@/components/FormElements/InputComponent";
 import {addNewAddress, deleteAddress, getAllAddress, updateAddress} from "@/services/address";
 import {toast} from "react-toastify";
 import Notification from "@/components/Notification";
+import {useRouter} from "next/navigation";
 
 export default function Account() {
 
@@ -14,7 +15,7 @@ export default function Account() {
 
     const [showAddressForm, setShowAddressForm] = useState(false);
     const [currentEditAddress, setCurrentEditAddress] = useState(null);
-
+    const router = useRouter();
 
     async function extractAllAddress() {
         const res = await getAllAddress(user?._id);
@@ -100,6 +101,7 @@ export default function Account() {
                             <p>{user?.email}</p>
                         </div>
                         <button
+                            onClick={()=>router.push('/orders')}
                             className="mt-5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase text-white">View
                             Your Orders
                         </button>

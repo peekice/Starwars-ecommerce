@@ -16,13 +16,11 @@ export const initialCheckoutFormData = {
 }
 
 const protectedRoutes = [
-    '/cart',
-    '/checkout',
-    '/account',
-    '/order',
-    '/admin-view',
-    '/admin-view/add-product',
-    '/admin-view/all-products',
+    'cart',
+    'checkout',
+    'account',
+    'order',
+    'admin-view',
 ];
 const protectedAdminRoutes = [
     '/admin-view',
@@ -47,6 +45,10 @@ export default function GlobalState({children}) {
     });
     const [checkoutFormData, setCheckoutFormData] = useState(initialCheckoutFormData);
 
+    const [allOrder, setAllOrder] = useState([]);
+    const [orderDetails, setOrderDetails] = useState(null);
+    const [allOrderAdmin, setAllOrderAdmin] = useState({});
+
     const router = useRouter();
     const pathName = usePathname();
 
@@ -66,7 +68,7 @@ export default function GlobalState({children}) {
     }, [Cookies])
 
     useEffect(() => {
-        if (user && Object.keys(user).length === 0 && protectedRoutes.indexOf(pathName) > -1) {
+        if (pathName !== '/register' && user && Object.keys(user).length === 0 && !protectedRoutes.includes(pathName)) {
             router.push('/login')
         }
     }, [user, pathName])
@@ -96,7 +98,13 @@ export default function GlobalState({children}) {
             addressFormData,
             setAddressFormData,
             checkoutFormData,
-            setCheckoutFormData
+            setCheckoutFormData,
+            allOrder,
+            setAllOrder,
+            orderDetails,
+            setOrderDetails,
+            allOrderAdmin,
+            setAllOrderAdmin
         }}>{children}</GlobalContext.Provider>
     )
 }

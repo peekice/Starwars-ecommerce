@@ -2,6 +2,7 @@ import {NextResponse} from "next/server";
 import connectToDB from "@/database";
 import AuthUser from "@/middleware/AuthUser";
 import Order from "@/models/order";
+import Product from "@/models/product";
 
 
 export const dynamic = "force-dynamic";

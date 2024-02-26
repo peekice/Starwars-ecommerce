@@ -20,8 +20,8 @@ export async function POST(req) {
                 payment_method_types: ["card"],
                 line_items: res,
                 mode: "payment",
-                success_url: deployLink + '?status=success',
-                cancel_url: deployLink+ '?status=cancel',
+                success_url: localLink + '?status=success',
+                cancel_url: localLink + '?status=cancel',
             });
 
             return NextResponse.json({
