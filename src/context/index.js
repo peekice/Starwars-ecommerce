@@ -68,7 +68,7 @@ export default function GlobalState({children}) {
     }, [Cookies])
 
     useEffect(() => {
-        if (pathName !== '/register' && user && Object.keys(user).length === 0 && !protectedRoutes.includes(pathName)) {
+        if (pathName !== '/register' && !pathName.includes('product') && pathName !== '/' && user && Object.keys(user).length === 0 && !protectedRoutes.includes(pathName)) {
             router.push('/login')
         }
     }, [user, pathName])

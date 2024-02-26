@@ -5,15 +5,25 @@ import {useContext, useEffect} from "react";
 import {GlobalContext} from "@/context";
 import CommonCart from "@/components/CommonCart";
 import {toast} from "react-toastify";
-export default function Cart(){
 
-    const {user,setCartItems,cartItems} =useContext(GlobalContext);
+export default function Cart() {
+
+    const {user, setCartItems, cartItems} = useContext(GlobalContext);
 
     async function extractAllCartItem() {
         const res = await getAllCartItems(user._id)
         if (res.success) {
-            setCartItems(res.data)
-            localStorage.setItem('cartItems', JSON.stringify(res.data))
+            const updateData = res.data && res.data.length ?
+                res.data.map(item => ({
+                    ...item,
+                    productID: {
+                        ...item.productID,
+                        price: item.productID.onSale === 'yes' ? parseInt((item.productID.price - item.productID.price * (item.productID.priceDrop / 100)).toFixed(2)) : item.productID.price
+                    }
+                }))
+                : [];
+            setCartItems(updateData)
+            localStorage.setItem('cartItems', JSON.stringify(updateData))
         }
     }
 

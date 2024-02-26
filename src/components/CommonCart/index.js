@@ -61,7 +61,7 @@ export default function CommonCart({cartItems = [] ,handleDeleteCartItems}){
                                 </div>
                             </div>
                             <div className="mt-5 text-center">
-                                <button onClick={()=>router.push('/orders')} disabled={cartItems && cartItems.length === 0} className="group inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg text-white font-medium uppercase disabled:opacity-50">Checkout</button>
+                                <button onClick={()=>router.push('/checkout')} disabled={cartItems && cartItems.length === 0} className="group inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg text-white font-medium uppercase disabled:opacity-50">Checkout</button>
                             </div>
                         </div>
                     </div>

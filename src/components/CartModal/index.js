@@ -17,8 +17,17 @@ export default function CartModal() {
     async function extractAllCartItem() {
         const res = await getAllCartItems(user._id)
         if (res.success) {
-            setCartItems(res.data)
-            localStorage.setItem('cartItems', JSON.stringify(res.data))
+            const updateData = res.data && res.data.length ?
+                res.data.map(item => ({
+                    ...item,
+                    productID: {
+                        ...item.productID,
+                        price: item.productID.onSale === 'yes' ? parseInt((item.productID.price - item.productID.price * (item.productID.priceDrop / 100)).toFixed(2)) : item.productID.price
+                    }
+                }))
+                : [];
+            setCartItems(updateData)
+            localStorage.setItem('cartItems', JSON.stringify(updateData))
         }
     }
 
@@ -77,8 +86,19 @@ export default function CartModal() {
             }
             buttonComponent={
                 <Fragment>
-                    <button onClick={()=>{router.push('/cart');setShowCartModal(false)}} type="button" className="mt-1.5 w-full inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase">Go to cart</button>
-                    <button onClick={()=>{router.push('/checkout');setShowCartModal(false)}}  disabled={cartItems && cartItems.length === 0} type="button" className="mt-1.5 w-full inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase disabled:opacity-50">Checkout</button>
+                    <button onClick={() => {
+                        router.push('/cart');
+                        setShowCartModal(false)
+                    }} type="button"
+                            className="mt-1.5 w-full inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase">Go
+                        to cart
+                    </button>
+                    <button onClick={() => {
+                        router.push('/checkout');
+                        setShowCartModal(false)
+                    }} disabled={cartItems && cartItems.length === 0} type="button"
+                            className="mt-1.5 w-full inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase disabled:opacity-50">Checkout
+                    </button>
                     <div className="mt-6 flex justify-center text-center text-sm text-gray-600">
                         <button type="button" className="font-medium text-gray">Continue Shopping</button>
                         <span aria-hidden="true"> &rarr;</span>

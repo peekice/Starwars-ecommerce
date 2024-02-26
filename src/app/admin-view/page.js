@@ -4,6 +4,8 @@
 import {useContext, useEffect} from "react";
 import {GlobalContext} from "@/context";
 import {getAllOrdersAdmin, updateOrder} from "@/services/order";
+import Notification from "@/components/Notification";
+import {toast} from "react-toastify";
 
 export default function AdminView(){
 
@@ -29,6 +31,14 @@ export default function AdminView(){
 
         if(res.success){
             extractAllOrders();
+            toast.success(res.message, {
+                position: "top-right"
+            });
+        }
+        else {
+            toast.error(res.message, {
+                position: "top-right"
+            });
         }
     }
 
@@ -100,6 +110,7 @@ export default function AdminView(){
                     </div>
                 </div>
             </div>
+            <Notification/>
         </section>
     )
 }
