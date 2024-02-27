@@ -2,8 +2,6 @@ import {NextResponse} from "next/server";
 import AuthUser from "@/middleware/AuthUser";
 
 const stripe = require('stripe')('sk_test_51OlbEgGmbckm5SEdGZbUjdd1fcG2p5Pd67Rx0RXt7aTImLnmpKiCWyfBFDbE5kKjvz7aYwFwYNv6qhQfw6sHbLyR00e5IYONt8')
-const deployLink = 'https://starwars-ecommerce.vercel.app/checkout'
-const localLink = 'http://localhost:3000/checkout'
 
 
 export const dynamic = 'force-dynamic'
@@ -20,8 +18,8 @@ export async function POST(req) {
                 payment_method_types: ["card"],
                 line_items: res,
                 mode: "payment",
-                success_url: localLink + '?status=success',
-                cancel_url: localLink + '?status=cancel',
+                success_url: 'https://starwars-ecommerce.vercel.app/checkout' + '?status=success',
+                cancel_url: 'https://starwars-ecommerce.vercel.app/checkout'+ '?status=cancel',
             });
 
             return NextResponse.json({
